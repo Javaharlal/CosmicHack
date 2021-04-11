@@ -102,16 +102,16 @@ def opt():
             if cursor.click:
                 cursor.click = False
                 sorting = scene.buttons[activeButton]["text"]
-                print(sorting)
+                createScene()
                 with sql.connect("spacex.db") as con:
                     cur = con.cursor()
-                    names = [str(*i) for i in cur.execute("SELECT \"Название\" FROM spacex")]
-                    heights = [str(*i) for i in cur.execute("SELECT \"Высота, м\" FROM spacex")]
-                    diameters = [str(*i) for i in cur.execute("SELECT \"Диаметр, м\" FROM spacex")]
-                    masses = [str(*i) for i in cur.execute("SELECT \"Масса, кг\" FROM spacex")]
-                    fuels = [str(*i) for i in cur.execute("SELECT \"Топливо\" FROM spacex")]
-                    descriptions = [str(*i) for i in cur.execute("SELECT \"Описание\" FROM spacex")]
-                    links = [str(*i) for i in cur.execute("SELECT \"Страница на Википедии\" FROM spacex")]
+                    names = [str(*i) for i in cur.execute(f"SELECT \"Название\" FROM spacex ORDER BY {sorting} DESC")]
+                    heights = [str(*i) for i in cur.execute(f"SELECT \"Высота, м\" FROM spacex ORDER BY {sorting} DESC")]
+                    diameters = [str(*i) for i in cur.execute(f"SELECT \"Диаметр, м\" FROM spacex ORDER BY {sorting} DESC")]
+                    masses = [str(*i) for i in cur.execute(f"SELECT \"Масса, кг\" FROM spacex ORDER BY {sorting} DESC")]
+                    fuels = [str(*i) for i in cur.execute(f"SELECT \"Топливо\" FROM spacex ORDER BY {sorting} DESC")]
+                    descriptions = [str(*i) for i in cur.execute(f"SELECT \"Описание\" FROM spacex ORDER BY {sorting} DESC")]
+                    links = [str(*i) for i in cur.execute(f"SELECT \"Страница на Википедии\" FROM spacex ORDER BY {sorting} DESC")]
         else:
             scene.buttons[i]["nowHover"] = False
     if cursor.click:
